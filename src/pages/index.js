@@ -175,6 +175,7 @@ const Home = () => {
                                     opacity: 0,
                                     y: -100
                                 }}
+                                drag={false}
                                 key={user.id}
                             >
                                 <CardContent>

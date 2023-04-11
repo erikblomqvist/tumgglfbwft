@@ -2,10 +2,10 @@ import { useGames } from '@/contexts/games'
 import { useScores } from '@/contexts/scores'
 import { useUsers } from '@/contexts/users'
 import {
-    Header, User, Emoji, Name, Score,
+    Header, User, Emoji, Name,
     Button
 } from '@/styles/ViewPlayer'
-import { Actions } from '@/styles/Form'
+import { CloseButton, Actions } from '@/styles/Form'
 import { Stats, Stat, StatLabel, StatValue } from '@/styles/Stats'
 import {
     ResponsiveContainer,
@@ -13,6 +13,7 @@ import {
     Tooltip, Bar, Rectangle
 } from 'recharts'
 import { light } from '@/styles/Theme.styled'
+import { X } from 'styled-icons/feather'
 
 const CustomBar = props => {
     let {
@@ -136,10 +137,18 @@ const ViewPlayer = ({ viewingPlayer, setViewingPlayer }) => {
                     <Emoji>{viewingPlayer.avatarEmoji}</Emoji>
                     <Name>{viewingPlayer.name}</Name>
                 </User>
-                <Score>{stats?.totalScore}</Score>
+                <CloseButton
+                    onClick={() => setViewingPlayer(null)}
+                >
+                    <X size={24} />
+                </CloseButton>
             </Header>
             {(!!stats?.highestScore && !!stats?.lowestScore) && (
                 <Stats>
+                    <Stat>
+                        <StatValue>{stats.totalScore}</StatValue>
+                        <StatLabel>Total</StatLabel>
+                    </Stat>
                     <Stat>
                         <StatValue>{stats.highestScore}</StatValue>
                         <StatLabel>Highest</StatLabel>

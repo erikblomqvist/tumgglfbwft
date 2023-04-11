@@ -3,6 +3,25 @@ import styled from 'styled-components'
 
 export const Form = styled.form``
 
+export const CloseButton = styled.button`
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    margin: 0.5rem;
+    padding: 0.5rem;
+
+    border: none;
+    border-radius: 50%;
+    background: none;
+
+    color: ${({ theme }) => theme.colors.content.text};
+
+    svg {
+        stroke-width: 2;
+    }
+`
+
 export const Actions = styled.div`
     display: flex;
     justify-content: end;

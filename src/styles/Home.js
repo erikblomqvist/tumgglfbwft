@@ -20,6 +20,12 @@ export const Header = styled.header`
     box-shadow: 0 0 0.5rem 0.5rem hsla(0, 0%, 0%, 0.1);
     background-color: ${({ theme }) => theme.colors.card.background};
 
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 1.5rem;
+        }
+    }
+
     button {
         flex-shrink: 0;
         
@@ -40,8 +46,7 @@ export const Header = styled.header`
 export const Modal = styled.dialog`
     border-radius: 1rem;
     border: 0;
-    width: 50vw;
-    min-width: 300px;
+    width: clamp(400px, 50vw, 600px);
 
     h2 {
         margin-top: 0.5rem;
@@ -72,7 +77,8 @@ export const Cards = styled(Reorder.Group)`
     overflow-y: auto;
     gap: 1rem;
 
-    padding-block: 1rem 5rem;
+    margin: 0;
+    padding: 1rem 1rem 5rem;
 `
 
 export const LastContainer = styled.div`

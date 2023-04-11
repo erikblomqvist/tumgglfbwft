@@ -3,11 +3,11 @@ export const light = {
     colors: {
         content: {
             background: 'hsl(0, 0%, 97%)',
-            text: 'hsl(0, 0, 23%)'
+            text: 'hsl(0, 0%, 23%)'
         },
         card: {
             background: 'hsl(0, 0%, 100%)',
-            text: 'hsl(0, 0, 23%)'
+            text: 'hsl(0, 0%, 23%)'
         },
         success: {
             background: 'hsl(136, 92%, 95%)',
