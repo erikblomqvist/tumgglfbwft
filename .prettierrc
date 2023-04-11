@@ -1,0 +1,6 @@
+{
+    "singleQuote": true,
+    "jsxBracketSameLine": true,
+    "printWidth": 100,
+    "noEditorConfig": true
+}

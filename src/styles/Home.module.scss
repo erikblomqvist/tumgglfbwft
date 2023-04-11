@@ -1,0 +1,32 @@
+$background: #8f8f8f;
+$card: #fff;
+
+$green-light: #e8feee;
+$green-dark: #5ec57a;
+
+$red-light: #feede8;
+$red-dark: #ee6464;
+
+.main {
+    min-height: 100vh;
+
+    background-color: $background;
+}
+
+.card {
+    border-radius: 1rem;
+    padding: 1rem;
+    background-color: $card;
+}
+
+.plusButton {
+    background-color: $green-light;
+
+    color: $green-dark;
+}
+
+.minusButton {
+    background-color: $red-light;
+
+    color: $red-dark;
+}
