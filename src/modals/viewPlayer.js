@@ -53,19 +53,31 @@ const CustomTooltip = ({ active, payload }) => {
             <p
                 style={{
                     margin: 0,
-                    fontSize: '0.75rem'
-                }}
-            >
-                {dateFormat.format(payload[0].payload.timestamp)}
-            </p>
-            <p
-                style={{
-                    margin: 0,
-                    fontSize: '1rem',
+                    fontSize: '1.25rem',
                     fontWeight: 700
                 }}
             >
                 {payload[0].payload.value}
+            </p>
+            {!!payload[0].payload.comment?.length && (
+                <p
+                    style={{
+                        margin: 0,
+                        fontSize: '1rem'
+                    }}
+                >
+                    {payload[0].payload.comment}
+                </p>
+            )}
+            <p
+                style={{
+                    margin: 0,
+                    marginTop: '0.5rem',
+                    fontSize: '0.75rem',
+                    opacity: 0.5
+                }}
+            >
+                {dateFormat.format(payload[0].payload.timestamp)}
             </p>
         </div>
     )

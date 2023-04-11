@@ -63,7 +63,7 @@ const Home = () => {
     }, [])
 
     useEffect(() => {
-        if (!!games?.length && !!scores?.length && !!users?.length) {
+        if (!!games?.length && !!users?.length) {
             const usersData = users
                 // Filter out users that are not in the current game (games[0])
                 // participants is an array of objects with userId and totalScore
