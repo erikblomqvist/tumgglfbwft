@@ -189,6 +189,16 @@ export const Button = styled.button`
             opacity: 0.8;
         }
     }
+
+    &.destructive {
+        background-color: ${({ theme }) => theme.colors.error.background};
+
+        color: ${({ theme }) => theme.colors.error.text};
+
+        &[disabled] {
+            opacity: 0.8;
+        }
+    }
     
     &:where(.plus, .minus) {
         padding: 0;

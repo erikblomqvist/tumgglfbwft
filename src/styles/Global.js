@@ -58,6 +58,11 @@ const loader = keyframes`
 `
 
 export const Loader = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
     display: inline-block;
     width: 1em;
     height: 1em;

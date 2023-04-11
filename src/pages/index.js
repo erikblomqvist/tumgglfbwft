@@ -24,20 +24,20 @@ const Home = () => {
     
     const {
         games,
-        loading: loadingGames
+        fetching: fetchingGames
     } = useGames()
 
     const {
         scores,
-        loading: loadingScores
+        fetching: fetchingScores
     } = useScores()
 
     const {
         users,
-        loading: loadingUsers
+        fetching: fetchingUsers
     } = useUsers()
 
-    const loading = loadingGames || loadingScores || loadingUsers
+    const fetching = fetchingGames || fetchingScores || fetchingUsers
 
     const [usersData, setUsersData] = useState([])
     const [addingPlayer, setAddingPlayer] = useState(false)
@@ -50,6 +50,8 @@ const Home = () => {
         const handleKeyDown = e => {
             if(e.key === 'Escape') {
                 setAddingPlayer(false)
+                setAddingScoreEntry(null)
+                setViewingPlayer(null)
             }
         }
 
@@ -144,8 +146,8 @@ const Home = () => {
                         setAddingPlayer={setAddingPlayer}
                     />
                 </Modal>
-                {loading && <Loader />}
-                {!loading && (
+                {fetching && <Loader />}
+                {!fetching && (
                     <Cards
                         axis="y"
                         values={usersData}

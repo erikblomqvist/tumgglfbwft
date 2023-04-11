@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Button as ButtonBase } from '@/styles/Home'
 
 export const Header = styled.header`
     display: flex;
@@ -33,3 +34,5 @@ export const Score = styled.p`
     font-size: 1.125rem;
     font-weight: 700;
 `
+
+export const Button = styled(ButtonBase)``

@@ -1,6 +1,11 @@
 import { useGames } from '@/contexts/games'
 import { useScores } from '@/contexts/scores'
-import { Header, User, Emoji, Name, Score } from '@/styles/ViewPlayer'
+import { useUsers } from '@/contexts/users'
+import {
+    Header, User, Emoji, Name, Score,
+    Button
+} from '@/styles/ViewPlayer'
+import { Actions } from '@/styles/Form'
 import { Stats, Stat, StatLabel, StatValue } from '@/styles/Stats'
 import {
     ResponsiveContainer,
@@ -65,9 +70,19 @@ const CustomTooltip = ({ active, payload }) => {
     )
 }
 
-const ViewPlayer = ({ viewingPlayer }) => {
-    const { games } = useGames()
+const ViewPlayer = ({ viewingPlayer, setViewingPlayer }) => {
+    const {
+        games,
+        removeParticipant,
+        loading: loadingGames
+    } = useGames()
+
     const { scores } = useScores()
+
+    const {
+        removeUser,
+        loading: loadingUsers
+    } = useUsers()
 
     if(!viewingPlayer) return null
 
@@ -75,12 +90,12 @@ const ViewPlayer = ({ viewingPlayer }) => {
     //     dateStyle: 'full'
     // })
 
-    const stats = games[0].participants.find(participant => participant.userId === viewingPlayer.id)
+    const stats = games[0].participants.find(participant => participant.userId === viewingPlayer?.id)
 
-    let { totalScore } = stats
+    let { totalScore = 0 } = stats ?? {}
 
     const userScoreEntries = scores
-        ?.filter(score => score.toUserId === viewingPlayer.id)
+        ?.filter(score => score.toUserId === viewingPlayer?.id)
         .sort((a, b) => b.timestamp - a.timestamp)
 
     const userScores = userScoreEntries
@@ -121,7 +136,7 @@ const ViewPlayer = ({ viewingPlayer }) => {
                     <Emoji>{viewingPlayer.avatarEmoji}</Emoji>
                     <Name>{viewingPlayer.name}</Name>
                 </User>
-                <Score>{stats.totalScore}</Score>
+                <Score>{stats?.totalScore}</Score>
             </Header>
             {(!!stats?.highestScore && !!stats?.lowestScore) && (
                 <Stats>
@@ -133,10 +148,12 @@ const ViewPlayer = ({ viewingPlayer }) => {
                         <StatValue>{stats.lowestScore}</StatValue>
                         <StatLabel>Lowest</StatLabel>
                     </Stat>
-                    <Stat>
-                        <StatValue>{avgPerWeek[0]}</StatValue>
-                        <StatLabel>Avg. per week</StatLabel>
-                    </Stat>
+                    {!!avgPerWeek?.length && (
+                        <Stat>
+                            <StatValue>{avgPerWeek[0]}</StatValue>
+                            <StatLabel>Avg. per week</StatLabel>
+                        </Stat>
+                    )}
                 </Stats>
             )}
             {!!userScores?.length && (
@@ -152,7 +169,13 @@ const ViewPlayer = ({ viewingPlayer }) => {
                         {/* <XAxis dataKey="name" /> */}
                         <YAxis
                             allowDecimals={false}
-                            range={[stats.lowestScore - 2, stats.highestScore + 2]}
+                            hide={true}
+                            domain={[
+                                stats.lowestScore < 0
+                                    ? stats.lowestScore - 2
+                                    : 0,
+                                stats.highestScore + 2
+                            ]}
                         />
                         <Tooltip content={<CustomTooltip />} />
                         <Bar
@@ -163,6 +186,31 @@ const ViewPlayer = ({ viewingPlayer }) => {
                     </BarChart>
                 </ResponsiveContainer>
             )}
+            <Actions>
+                <Button
+                    onClick={async () => {
+                        await removeParticipant({
+                            gameId: games[0].id,
+                            userId: viewingPlayer.id
+                        })
+                        setViewingPlayer(null)
+                    }}
+                    disabled={loadingGames || loadingUsers}
+                    className="destructive"
+                >
+                    Remove as participant
+                </Button>
+                <Button
+                    onClick={async () => {
+                        await removeUser(viewingPlayer.id)
+                        setViewingPlayer(null)
+                    }}
+                    disabled={loadingGames || loadingUsers}
+                    className="destructive"
+                >
+                    Remove user
+                </Button>
+            </Actions>
         </>
     )
 }

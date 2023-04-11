@@ -4,7 +4,7 @@ import React, {
 } from 'react'
 import {
     collection,
-    doc, updateDoc, getDocs
+    doc, updateDoc, getDocs, getDoc
 } from 'firebase/firestore'
 import { database } from '@/firebaseConfig'
 
@@ -14,7 +14,8 @@ const GamesContext = createContext()
 
 const GamesProvider = ({ children }) => {
     const [games, setGames] = useState([])
-    const [loading, setLoading] = useState(true)
+    const [fetching, setFetching] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         getDocs(gamesCollection)
@@ -25,7 +26,7 @@ const GamesProvider = ({ children }) => {
                         id: item.id
                     }
                 }))
-                setLoading(false)
+                setFetching(false)
             })
             .catch(err => {
                 console.error(err)
@@ -46,7 +47,9 @@ const GamesProvider = ({ children }) => {
 
     const addParticipant = async ({ gameId, userId, overrideScore }) => {
         try {
-            const userRef = doc(database, 'users', userId)
+            setLoading(true)
+
+            const user = await getDoc(doc(database, 'users', userId))
             const gamesRef = doc(database, 'games', gameId)
 
             const addedTimestamp = new Date()
@@ -56,9 +59,9 @@ const GamesProvider = ({ children }) => {
                     ...games[0].participants,
                     {
                         userId,
-                        totalScore: parseInt(defaultScore({ overrideScore, childOrPet: userRef.childOrPet })),
-                        lowestScore: parseInt(defaultScore({ overrideScore, childOrPet: userRef.childOrPet })),
-                        highestScore: parseInt(defaultScore({ overrideScore, childOrPet: userRef.childOrPet })),
+                        totalScore: parseInt(defaultScore({ overrideScore, childOrPet: user.data().childOrPet })),
+                        lowestScore: parseInt(defaultScore({ overrideScore, childOrPet: user.data().childOrPet })),
+                        highestScore: parseInt(defaultScore({ overrideScore, childOrPet: user.data().childOrPet })),
                         addedTimestamp
                     }
                 ]
@@ -73,9 +76,9 @@ const GamesProvider = ({ children }) => {
                                 ...game.participants,
                                 {
                                     userId,
-                                    totalScore: parseInt(defaultScore({ overrideScore, childOrPet: userRef.childOrPet })),
-                                    lowestScore: parseInt(defaultScore({ overrideScore, childOrPet: userRef.childOrPet })),
-                                    highestScore: parseInt(defaultScore({ overrideScore, childOrPet: userRef.childOrPet })),
+                                    totalScore: parseInt(defaultScore({ overrideScore, childOrPet: user.data().childOrPet })),
+                                    lowestScore: parseInt(defaultScore({ overrideScore, childOrPet: user.data().childOrPet })),
+                                    highestScore: parseInt(defaultScore({ overrideScore, childOrPet: user.data().childOrPet })),
                                     addedTimestamp
                                 }
                             ]
@@ -84,6 +87,37 @@ const GamesProvider = ({ children }) => {
                     return game
                 })
             })
+
+            setLoading(false)
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+    const removeParticipant = async ({ gameId, userId }) => {
+        try {
+            setLoading(true)
+            
+            const gamesRef = doc(database, 'games', gameId)
+
+            await updateDoc(gamesRef, {
+                participants: games[0].participants.filter(participant => participant.userId !== userId)
+            })
+
+            setGames(prev => {
+                return prev.map(game => {
+                    if (game.id === gameId) {
+                        return {
+                            ...game,
+                            participants: game.participants.filter(participant => participant.userId !== userId)
+                        }
+                    }
+
+                    return game
+                })
+            })
+
+            setLoading(false)
         } catch (err) {
             console.error(err)
         }
@@ -93,6 +127,8 @@ const GamesProvider = ({ children }) => {
         games,
         setGames,
         addParticipant,
+        removeParticipant,
+        fetching,
         loading
     }
 

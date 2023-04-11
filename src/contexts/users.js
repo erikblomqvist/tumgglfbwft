@@ -4,7 +4,7 @@ import React, {
 } from 'react'
 import {
     collection,
-    doc, addDoc, updateDoc, getDocs
+    doc, addDoc, updateDoc, deleteDoc, getDocs
 } from 'firebase/firestore'
 import { database } from '@/firebaseConfig'
 import { useGames } from '@/contexts/games'
@@ -16,7 +16,8 @@ const UsersContext = createContext()
 
 const UsersProvider = ({ children }) => {
     const [users, setUsers] = useState([])
-    const [loading, setLoading] = useState(true)
+    const [fetching, setFetching] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     const {
         games,
@@ -32,27 +33,17 @@ const UsersProvider = ({ children }) => {
                         id: item.id
                     }
                 }))
-                setLoading(false)
+                setFetching(false)
             })
             .catch(err => {
                 console.error(err)
             })
     }, [])
 
-    const defaultScore = ({ overrideScore, childOrPet }) => {
-        if (overrideScore) {
-            return overrideScore
-        }
-
-        if (childOrPet) {
-            return 50
-        }
-
-        return -1
-    }
-
     const addUser = async body => {
         try {
+            setLoading(true)
+            
             const addedTimestamp = new Date()
             
             const docRef = await addDoc(usersCollection, omit(body, ['overrideScore']))
@@ -99,6 +90,43 @@ const UsersProvider = ({ children }) => {
                     return game
                 })
             })
+
+            setLoading(false)
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+    const removeUser = async userId => {
+        try {
+            setLoading(true)
+            
+            const userRef = doc(database, 'users', userId)
+
+            await deleteDoc(userRef)
+
+            setUsers(prev => prev.filter(user => user.id !== userId))
+
+            const gamesRef = doc(database, 'games', games[0].id)
+
+            await updateDoc(gamesRef, {
+                participants: games[0].participants.filter(participant => participant.userId !== userId)
+            })
+
+            setGames(prev => {
+                return prev.map(game => {
+                    if (game.id === games[0].id) {
+                        return {
+                            ...game,
+                            participants: game.participants.filter(participant => participant.userId !== userId)
+                        }
+                    }
+
+                    return game
+                })
+            })
+
+            setLoading(false)
         } catch (err) {
             console.error(err)
         }
@@ -107,6 +135,8 @@ const UsersProvider = ({ children }) => {
     const value = {
         users,
         addUser,
+        removeUser,
+        fetching,
         loading
     }
 
@@ -115,6 +145,18 @@ const UsersProvider = ({ children }) => {
             {children}
         </UsersContext.Provider>
     )
+}
+
+const defaultScore = ({ overrideScore, childOrPet }) => {
+    if (overrideScore) {
+        return overrideScore
+    }
+
+    if (childOrPet) {
+        return 50
+    }
+
+    return -1
 }
 
 export const useUsers = () => useContext(UsersContext)

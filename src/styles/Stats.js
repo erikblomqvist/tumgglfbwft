@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 export const Stats = styled.div`
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
     align-items: center;
 
     margin-bottom: 1rem;
