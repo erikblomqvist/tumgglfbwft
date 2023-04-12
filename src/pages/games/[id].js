@@ -1,10 +1,10 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useMemo, useState, useRef } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import GamesProvider, { useGames } from '@/contexts/games'
 import ScoresProvider, { useScores } from '@/contexts/scores'
 import UsersProvider, { useUsers } from '@/contexts/users'
-import { Loader } from '@/styles/Global'
+import { Loader } from '@/components/Loader'
 import {
     Main, Header,
     Modal,
@@ -29,7 +29,9 @@ const Home = () => {
         fetching: fetchingGames
     } = useGames()
 
-    const currentGame = games?.find(game => game.id === gameId) || {}
+    const currentGame = useMemo(() => {
+        return games?.find(game => game.id === gameId)
+    }, [games, gameId])
 
     const {
         scores,
@@ -89,7 +91,7 @@ const Home = () => {
 
             setUsersData(usersData)
         }
-    }, [games, scores, users, gameId])
+    }, [games, scores, users, currentGame])
 
     useEffect(() => {
         if(!addingPlayer) {

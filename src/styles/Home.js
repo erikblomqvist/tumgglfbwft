@@ -20,10 +20,8 @@ export const Header = styled.header`
     box-shadow: 0 0 0.5rem 0.5rem hsla(0, 0%, 0%, 0.1);
     background-color: ${({ theme }) => theme.colors.card.background};
 
-    @media (max-width: 768px) {
-        h1 {
-            font-size: 1.25rem;
-        }
+    h1 {
+        font-size: max(1rem, 2.3vw);
     }
 
     button {

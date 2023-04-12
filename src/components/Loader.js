@@ -1,44 +1,54 @@
 import styled, { keyframes } from 'styled-components'
 
-const loader = keyframes`
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
+const scaleUp  = keyframes`
+    0% {
+        scale: 0;
+    }
+    60%, 100% {
+        scale: 1;
+    }
+`
+
+const pulse = keyframes`
+    0%, 60%, 100% {
+        scale: 1;
+    }
+    80% {
+        scale: 1.2;
+    }
 `
 
 export const Loader = styled.div`
     position: fixed;
-    top: 50vh;
-    left: 50vw;
-    transform: translate(-50%, -50%);
-
+    z-index: 5;
+    top: 50%;
+    left: 50%;
+    
     display: inline-block;
-    width: 1em;
-    height: 1em;
-    color: inherit;
-    vertical-align: middle;
-    pointer-events: none;
 
-	border: .2em solid transparent;
-	border-top-color: currentcolor;
-	border-radius: 50%;
-	animation: 1s ${loader} linear infinite;
-	position: relative;
-    font-size: 4rem;
+    border: 5px solid ${({ theme }) => theme.colors.loader};
+    border-radius: 50%;
+    width: 3em;
+    height: 3em;
+    opacity: 0.8;
 
-	&:before {
-		content: "";
-		display: block;
-		width: inherit;
-		height: inherit;
-		position: absolute;
-		top: -.2em;
-		left: -.2em;
-		border: .2em solid currentcolor;
-		border-radius: 50%;
-		opacity: .5;
-	}
+    animation: ${pulse} 1s linear infinite;
+    translate: -50% -50%;
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+
+        display: inherit;
+
+        border: inherit;
+        border-radius: inherit;
+        width: inherit;
+        height: inherit;
+
+        animation: ${scaleUp} 1s linear infinite;
+        translate: inherit;
+    }
 `

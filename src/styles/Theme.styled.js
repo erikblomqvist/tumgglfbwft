@@ -1,6 +1,7 @@
 export const light = {
     name: 'light',
     colors: {
+        loader: 'hsl(213, 73%, 41%)',
         content: {
             background: 'hsl(0, 0%, 97%)',
             text: 'hsl(0, 0%, 23%)'

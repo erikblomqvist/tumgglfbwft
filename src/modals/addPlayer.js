@@ -44,7 +44,7 @@ const AddPlayer = ({
             formRef.current?.reset()
             setSelectedEmoji(null)
         }
-    }, [addingPlayer])
+    }, [addingPlayer, setSelectedEmoji])
 
     if(!addingPlayer) {
         return null
