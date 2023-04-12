@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import app from '@/base'
+import { app } from '@/base'
 import {
     getAuth,
     signInWithEmailAndPassword, signInWithPopup, setPersistence, browserSessionPersistence,

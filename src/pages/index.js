@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import app from '@/base'
+import { app } from '@/base'
 import { useAuthUser } from '@/contexts/auth'
 import { getAuth, signOut } from 'firebase/auth'
 import Games from '@/pages/games'

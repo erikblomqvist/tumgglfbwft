@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import router from 'next/router'
-import app from '@/base'
+import { app } from '@/base'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
 const SignupPage = () => {

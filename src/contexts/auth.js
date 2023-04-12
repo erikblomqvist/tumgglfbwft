@@ -2,7 +2,7 @@ import {
     useState, useEffect,
     createContext, useContext
 } from 'react'
-import app from '@/base'
+import { app } from '@/base'
 import { getAuth, onAuthStateChanged, setPersistence, browserSessionPersistence } from 'firebase/auth'
 
 const AuthContext = createContext()
