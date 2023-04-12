@@ -3,6 +3,60 @@ import styled from 'styled-components'
 
 export const Form = styled.form``
 
+export const Button = styled.button`
+    display: grid;
+    place-items: center;
+
+    border-radius: 0.5rem;
+    min-height: 40px;
+    padding: 0 1rem;
+
+    &.constructive {
+        background-color: ${({ theme }) => theme.colors.neutral.background};
+
+        color: ${({ theme }) => theme.colors.neutral.text};
+
+        &[disabled] {
+            opacity: 0.8;
+        }
+    }
+
+    &.destructive {
+        background-color: ${({ theme }) => theme.colors.error.background};
+
+        color: ${({ theme }) => theme.colors.error.text};
+
+        &[disabled] {
+            opacity: 0.8;
+        }
+    }
+    
+    &:where(.plus, .minus) {
+        padding: 0;
+
+        font-size: 1.5rem;
+
+        svg {
+            stroke-width: 3;
+        }
+    }
+
+    &.plus {
+        width: 56px;
+        background-color: ${({ theme }) => theme.colors.success.background};
+
+        color: ${({ theme }) => theme.colors.success.text};
+    }
+
+    &.minus {
+        flex-grow: 1;
+        
+        background-color: ${({ theme }) => theme.colors.error.background};
+
+        color: ${({ theme }) => theme.colors.error.text};
+    }
+`
+
 export const CloseButton = styled.button`
     position: absolute;
     top: 0;

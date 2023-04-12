@@ -6,7 +6,7 @@ import {
     collection,
     doc, updateDoc, getDocs, getDoc
 } from 'firebase/firestore'
-import { database } from '@/firebaseConfig'
+import { database } from '@/base'
 
 const gamesCollection = collection(database, 'games')
 

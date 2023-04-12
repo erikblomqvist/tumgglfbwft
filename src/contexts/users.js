@@ -6,7 +6,7 @@ import {
     collection,
     doc, addDoc, updateDoc, deleteDoc, getDocs
 } from 'firebase/firestore'
-import { database } from '@/firebaseConfig'
+import { database } from '@/base'
 import { useGames } from '@/contexts/games'
 import { omit } from 'lodash'
 
