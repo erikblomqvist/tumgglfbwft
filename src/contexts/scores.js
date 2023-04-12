@@ -18,9 +18,12 @@ const ScoresProvider = ({ children }) => {
     const [loading, setLoading] = useState(true)
 
     const {
+        id: gameId,
         games,
         setGames
     } = useGames()
+
+    const currentGame = games.find(game => game.id === gameId)
 
     useEffect(() => {
         getDocs(scoresCollection)
@@ -59,10 +62,10 @@ const ScoresProvider = ({ children }) => {
                 }
             ])
 
-            const gamesRef = doc(database, 'games', games[0].id)
+            const gamesRef = doc(database, 'games', gameId)
             await updateDoc(gamesRef, {
                 participants: [
-                    ...games[0].participants.map(participant => {
+                    ...currentGame.participants.map(participant => {
                         if (participant.userId === body.toUserId) {
                             const value = parseInt(body.value)
                             
@@ -81,7 +84,7 @@ const ScoresProvider = ({ children }) => {
 
             setGames(prev => {
                 return prev.map(game => {
-                    if (game.id === games[0].id) {
+                    if (game.id === gameId) {
                         return {
                             ...game,
                             participants: [

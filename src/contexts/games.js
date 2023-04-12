@@ -12,26 +12,43 @@ const gamesCollection = collection(database, 'games')
 
 const GamesContext = createContext()
 
-const GamesProvider = ({ children }) => {
+const GamesProvider = ({ id = null, children }) => {
     const [games, setGames] = useState([])
     const [fetching, setFetching] = useState(true)
     const [loading, setLoading] = useState(false)
 
+    const currentGame = games.find(game => game.id === id)
+
     useEffect(() => {
-        getDocs(gamesCollection)
-            .then(data => {
-                setGames(data.docs.map(item => {
-                    return {
-                        ...item.data(),
-                        id: item.id
-                    }
-                }))
-                setFetching(false)
-            })
-            .catch(err => {
-                console.error(err)
-            })
-    }, [])
+        if(!id) {
+            getDocs(gamesCollection)
+                .then(data => {
+                    setGames(data.docs.map(item => {
+                        return {
+                            ...item.data(),
+                            id: item.id
+                        }
+                    }))
+                    setFetching(false)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        } else {
+            getDoc(doc(gamesCollection, id))
+                .then(data => {
+                    setGames([{
+                        ...data.data(),
+                        id: data.id
+                    }])
+                    setFetching(false)
+                })
+                .catch(err => {
+                    console.error(err)
+                }
+            )
+        }
+    }, [id])
 
     const defaultScore = ({ overrideScore, childOrPet }) => {
         if (overrideScore) {
@@ -56,7 +73,7 @@ const GamesProvider = ({ children }) => {
             
             await updateDoc(gamesRef, {
                 participants: [
-                    ...games[0].participants,
+                    ...currentGame.participants,
                     {
                         userId,
                         totalScore: parseInt(defaultScore({ overrideScore, childOrPet: user.data().childOrPet })),
@@ -84,6 +101,7 @@ const GamesProvider = ({ children }) => {
                             ]
                         }
                     }
+
                     return game
                 })
             })
@@ -101,7 +119,7 @@ const GamesProvider = ({ children }) => {
             const gamesRef = doc(database, 'games', gameId)
 
             await updateDoc(gamesRef, {
-                participants: games[0].participants.filter(participant => participant.userId !== userId)
+                participants: currentGame.participants.filter(participant => participant.userId !== userId)
             })
 
             setGames(prev => {
@@ -124,6 +142,7 @@ const GamesProvider = ({ children }) => {
     }
 
     const value = {
+        id,
         games,
         setGames,
         addParticipant,

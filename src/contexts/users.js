@@ -20,9 +20,12 @@ const UsersProvider = ({ children }) => {
     const [loading, setLoading] = useState(false)
 
     const {
+        id: gameId,
         games,
         setGames
     } = useGames()
+
+    const currentGame = games.find(game => game.id === gameId)
 
     useEffect(() => {
         getDocs(usersCollection)
@@ -55,10 +58,10 @@ const UsersProvider = ({ children }) => {
                 }
             ])
 
-            const gamesRef = doc(database, 'games', games[0].id)
+            const gamesRef = doc(database, 'games', gameId)
             await updateDoc(gamesRef, {
                 participants: [
-                    ...games[0].participants,
+                    ...currentGame.participants,
                     {
                         userId: docRef.id,
                         totalScore: parseInt(defaultScore(body)),
@@ -71,7 +74,7 @@ const UsersProvider = ({ children }) => {
 
             setGames(prev => {
                 return prev.map(game => {
-                    if (game.id === games[0].id) {
+                    if (game.id === gameId) {
                         return {
                             ...game,
                             participants: [
@@ -107,15 +110,15 @@ const UsersProvider = ({ children }) => {
 
             setUsers(prev => prev.filter(user => user.id !== userId))
 
-            const gamesRef = doc(database, 'games', games[0].id)
+            const gamesRef = doc(database, 'games', gameId)
 
             await updateDoc(gamesRef, {
-                participants: games[0].participants.filter(participant => participant.userId !== userId)
+                participants: currentGame.participants.filter(participant => participant.userId !== userId)
             })
 
             setGames(prev => {
                 return prev.map(game => {
-                    if (game.id === games[0].id) {
+                    if (game.id === gameId) {
                         return {
                             ...game,
                             participants: game.participants.filter(participant => participant.userId !== userId)

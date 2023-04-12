@@ -13,7 +13,7 @@ const AddScoreEntry = ({ addingScoreEntry, setAddingScoreEntry }) => {
     const formRef = useRef()
     const commentRef = useRef()
     
-    const { games } = useGames()
+    const { id: gameId } = useGames()
 
     const { users } = useUsers()
     
@@ -36,7 +36,7 @@ const AddScoreEntry = ({ addingScoreEntry, setAddingScoreEntry }) => {
                 const comment = commentRef.current?.value || ''
 
                 await addScoreEntry({
-                    gameId: games[0].id,
+                    gameId,
                     fromUserId: myUserId,
                     toUserId: addingScoreEntry.userId,
                     value,

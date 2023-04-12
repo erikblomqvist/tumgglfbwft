@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import GamesProvider, { useGames } from '@/contexts/games'
 import ScoresProvider, { useScores } from '@/contexts/scores'
 import UsersProvider, { useUsers } from '@/contexts/users'
@@ -23,9 +24,12 @@ const Home = () => {
     const viewPlayerRef = useRef()
     
     const {
+        id: gameId,
         games,
         fetching: fetchingGames
     } = useGames()
+
+    const currentGame = games?.find(game => game.id === gameId) || {}
 
     const {
         scores,
@@ -63,14 +67,11 @@ const Home = () => {
     }, [])
 
     useEffect(() => {
-        if (!!games?.length && !!users?.length) {
+        if (!!games?.length && !!users?.length && currentGame) {
             const usersData = users
-                // Filter out users that are not in the current game (games[0])
-                // participants is an array of objects with userId and totalScore
-                .filter(user => games[0].participants.some(participant => participant.userId === user.id))
-                // Map users to user cards with avatarEmoji, name, score and placement
+                .filter(user => currentGame.participants.some(participant => participant.userId === user.id))
                 .map(user => {
-                    const score = games[0].participants.find(participant => participant.userId === user.id).totalScore
+                    const score = currentGame.participants.find(participant => participant.userId === user.id).totalScore
 
                     return {
                         id: user.id,
@@ -88,7 +89,7 @@ const Home = () => {
 
             setUsersData(usersData)
         }
-    }, [games, scores, users])
+    }, [games, scores, users, gameId])
 
     useEffect(() => {
         if(!addingPlayer) {
@@ -239,14 +240,19 @@ const Home = () => {
     )
 }
 
-const HomeProvider = props => (
-    <GamesProvider>
-        <UsersProvider>
-            <ScoresProvider>
-                <Home {...props} />
-            </ScoresProvider>
-        </UsersProvider>
-    </GamesProvider>
-)
+const HomeProvider = props => {
+    const router = useRouter()
+    const { id } = router.query
+
+    return (
+        <GamesProvider id={id}>
+            <UsersProvider>
+                <ScoresProvider>
+                    <Home {...props} />
+                </ScoresProvider>
+            </UsersProvider>
+        </GamesProvider>
+    )
+}
 
 export default HomeProvider

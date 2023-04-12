@@ -31,9 +31,12 @@ const AddPlayer = ({
     } = useUsers()
 
     const {
+        id: gameId,
         games = [],
         addParticipant
     } = useGames()
+
+    const currentGame = games.find(game => game.id === gameId)
 
     useEffect(() => {
         if(!addingPlayer) {
@@ -49,7 +52,7 @@ const AddPlayer = ({
 
     const nonExistingUsers = users
         .filter(user => {
-            return !games[0].participants.some(participant => participant.userId === user.id)
+            return !currentGame.participants.some(participant => participant.userId === user.id)
         })
         .sort((a, b) => a.name.localeCompare(b.name))
 
@@ -102,7 +105,7 @@ const AddPlayer = ({
                         if (!!userId) {
                             await addParticipant({
                                 userId,
-                                gameId: games[0].id,
+                                gameId,
                                 ...((overrideScore !== '') && { overrideScore })
                             })
                             formRef.current?.reset()

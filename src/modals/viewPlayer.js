@@ -85,10 +85,13 @@ const CustomTooltip = ({ active, payload }) => {
 
 const ViewPlayer = ({ viewingPlayer, setViewingPlayer }) => {
     const {
+        id: gameId,
         games,
         removeParticipant,
         loading: loadingGames
     } = useGames()
+
+    const currentGame = games.find(game => game.id === gameId)
 
     const { scores } = useScores()
 
@@ -103,7 +106,7 @@ const ViewPlayer = ({ viewingPlayer, setViewingPlayer }) => {
     //     dateStyle: 'full'
     // })
 
-    const stats = games[0].participants.find(participant => participant.userId === viewingPlayer?.id)
+    const stats = currentGame.participants.find(participant => participant.userId === viewingPlayer?.id)
 
     let { totalScore = 0 } = stats ?? {}
 
@@ -211,7 +214,7 @@ const ViewPlayer = ({ viewingPlayer, setViewingPlayer }) => {
                 <Button
                     onClick={async () => {
                         await removeParticipant({
-                            gameId: games[0].id,
+                            gameId,
                             userId: viewingPlayer.id
                         })
                         setViewingPlayer(null)
