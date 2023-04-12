@@ -1,6 +1,7 @@
 import GamesProvider, { useGames } from '@/contexts/games'
 import { Loader } from '@/components/Loader'
 import Link from 'next/link'
+import { Header } from '@/styles/Games'
 
 const GamesPage = () => {
     const {
@@ -14,15 +15,20 @@ const GamesPage = () => {
                 <Loader />
             )}
             {!!games.length && (
-                <ul>
-                    {games.map(game => (
-                        <li key={game.id}>
-                            <Link href={`/games/${game.id}`}>
-                                {game.name}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
+                <>
+                    <Header>
+                        <h1>Games</h1>
+                    </Header>
+                    <ul>
+                        {games.map(game => (
+                            <li key={game.id}>
+                                <Link href={`/games/${game.id}`}>
+                                    {game.name}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </>
             )}
         </div>
     )

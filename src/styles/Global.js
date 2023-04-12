@@ -31,6 +31,10 @@ export const GlobalStyles = createGlobalStyle`
         }
     }
 
+    h1 {
+        font-size: max(1rem, 2.3vw);
+    }
+
     button {
         border: none;
         border-radius: 0;

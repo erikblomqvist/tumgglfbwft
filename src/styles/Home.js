@@ -18,11 +18,7 @@ export const Header = styled.header`
     margin-bottom: 1rem;
     padding: 1rem;
     box-shadow: 0 0 0.5rem 0.5rem hsla(0, 0%, 0%, 0.1);
-    background-color: ${({ theme }) => theme.colors.card.background};
-
-    h1 {
-        font-size: max(1rem, 2.3vw);
-    }
+    background-color: ${({ theme }) => theme.colors.container.background};
 
     button {
         flex-shrink: 0;
@@ -120,10 +116,10 @@ export const CardContent = styled.div`
 
     border-radius: 1rem;
     padding: 1rem;
-    background-color: ${({ theme }) => theme.colors.card.background};
+    background-color: ${({ theme }) => theme.colors.container.background};
     box-shadow: 0px 4px 15px hsla(0, 0%, 0%, 0.04);
 
-    color: ${({ theme }) => theme.colors.card.text};
+    color: ${({ theme }) => theme.colors.container.text};
 `
 
 export const Meta = styled.div`
@@ -184,6 +180,16 @@ export const Button = styled.button`
     min-height: 40px;
     padding: 0 1rem;
 
+    &.order {
+        margin-inline: auto 1rem;
+
+        &.desc {
+            svg {
+                rotate: 180deg;
+            }
+        }
+    }
+
     &.constructive {
         background-color: ${({ theme }) => theme.colors.neutral.background};
 
@@ -202,6 +208,10 @@ export const Button = styled.button`
         &[disabled] {
             opacity: 0.8;
         }
+    }
+
+    svg {
+        stroke-width: 2;
     }
     
     &:where(.plus, .minus) {

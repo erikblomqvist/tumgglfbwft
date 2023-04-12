@@ -13,7 +13,12 @@ import {
     Actions, Button,
     LastContainer, LastEmoji, LastText
 } from '@/styles/Home'
-import { UserPlus, Plus, Minus } from 'styled-icons/feather'
+import { FABButton } from '@/components/Button'
+import {
+    UserPlus,
+    Plus, Minus
+} from 'styled-icons/feather'
+import { FilterList } from 'styled-icons/material'
 import AddPlayer from '@/modals/addPlayer'
 import AddScoreEntry from '@/modals/addScoreEntry'
 import ViewPlayer from '@/modals/viewPlayer'
@@ -126,17 +131,17 @@ const Home = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Main>
+                <FABButton onClick={() => setAddingPlayer(true)}>
+                    <UserPlus size={20} />
+                </FABButton>
                 <Header>
                     <h1>The Ultimate, Marvelous and Glorious Game of Life and Fantastic Beasts and Where to Find Them</h1>
-                    <Button onClick={() => setAddingPlayer(true)}>
-                        <UserPlus size={20} />
-                    </Button>
                 </Header>
                 <Button
-                    className="order"
+                    className={`order ${cardsOrder === 'asc' ? 'asc' : 'desc'}`}
                     onClick={() => setCardsOrder(cardsOrder === 'asc' ? 'desc' : 'asc')}
                 >
-                    {cardsOrder === 'asc' ? '👇' : '👆'}
+                    <FilterList size={20} />
                 </Button>
                 <Modal
                     id="addPlayer"
