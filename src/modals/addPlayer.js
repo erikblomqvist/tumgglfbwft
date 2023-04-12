@@ -156,7 +156,8 @@ const AddPlayer = ({
                             <EmojiPicker
                                 data={emojiData}
                                 onEmojiSelect={emoji => setSelectedEmoji(emoji)}
-                                perLine={12}
+                                dynamicWidth={true}
+                                theme="light"
                             />
                         </EmojiPickerWrapper>
                     </>

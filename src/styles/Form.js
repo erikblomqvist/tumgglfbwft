@@ -225,4 +225,10 @@ export const Select = styled.select`
 
 export const EmojiPickerWrapper = styled.div`
     margin-bottom: 1rem;
+
+    em-emoji-picker {
+        --font-family: 'Work Sans', sans-serif;
+        
+        width: 100%;
+    }
 `
