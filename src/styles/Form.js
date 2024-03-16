@@ -12,9 +12,9 @@ export const Button = styled.button`
     padding: 0 1rem;
 
     &.constructive {
-        background-color: ${({ theme }) => theme.colors.neutral.background};
+        background-color: var(--tumgglfbwft-neutral-background);
 
-        color: ${({ theme }) => theme.colors.neutral.text};
+        color: var(--tumgglfbwft-neutral-text);
 
         &[disabled] {
             opacity: 0.8;
@@ -69,7 +69,7 @@ export const CloseButton = styled.button`
     border-radius: 50%;
     background: none;
 
-    color: ${({ theme }) => theme.colors.content.text};
+    color: var(--tumgglfbwft-content-text);
 
     svg {
         stroke-width: 2;
@@ -210,7 +210,7 @@ export const Input = styled.input`
     width: 100%;
     min-height: 40px;
     padding: 0 1rem;
-    background-color: ${({ theme }) => theme.colors.content.background};
+    background-color: var(--tumgglfbwft-content-background);
 `
 
 export const Select = styled.select`
@@ -220,7 +220,7 @@ export const Select = styled.select`
     width: 100%;
     min-height: 40px;
     padding: 0 1rem;
-    background-color: ${({ theme }) => theme.colors.content.background};
+    background-color: var(--tumgglfbwft-content-background);
 `
 
 export const EmojiPickerWrapper = styled.div`

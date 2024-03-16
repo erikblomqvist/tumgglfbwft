@@ -59,14 +59,14 @@ export const GlobalStyles = createGlobalStyle`
 
         --tumgglfbwft-loader: var(--tumgglfbwft-color-primary-40);
 
-        --tumgglfbwft-content-background: var(--tumgglfbwft-color-neutral-0);
+        --tumgglfbwft-content-background: var(--tumgglfbwft-color-neutral-10);
         --tumgglfbwft-content-text: var(--tumgglfbwft-color-neutral-90);
 
         --tumgglfbwft-container-background: var(--tumgglfbwft-color-neutral-0);
         --tumgglfbwft-container-text: var(--tumgglfbwft-color-neutral-70);
 
-        --tumgglfbwft-button-background: var(--tumgglfbwft-color-neutral-70);
-        --tumgglfbwft-button-text: var(--tumgglfbwft-color-neutral-0);
+        --tumgglfbwft-button-background: var(--tumgglfbwft-color-neutral-20);
+        --tumgglfbwft-button-text: var(--tumgglfbwft-color-neutral-100);
 
         --tumgglfbwft-success-background: var(--tumgglfbwft-color-tertiary-90);
         --tumgglfbwft-success-text: var(--tumgglfbwft-color-tertiary-40);
@@ -74,7 +74,8 @@ export const GlobalStyles = createGlobalStyle`
         --tumgglfbwft-error-background: var(--tumgglfbwft-color-error-90);
         --tumgglfbwft-error-text: var(--tumgglfbwft-color-error-40);
 
-        --tumgglfbwft-neutral-background: var(--tumgglfbwft-color-secondary-90);
+        --tumgglfbwft-neutral-background: var(--tumgglfbwft-color-primary-80);
+        --tumgglfbwft-neutral-background-hover: var(--tumgglfbwft-color-primary-70);
         --tumgglfbwft-neutral-text: var(--tumgglfbwft-color-primary-40);
 
         --tumgglfbwft-last-background: hsl(45, 100%, 66%);
@@ -96,10 +97,11 @@ export const GlobalStyles = createGlobalStyle`
             --tumgglfbwft-error-background: var(--tumgglfbwft-color-error-40);
             --tumgglfbwft-error-text: var(--tumgglfbwft-color-error-90);
 
-            --tumgglfbwft-neutral-background: var(--tumgglfbwft-color-secondary-10);
+            --tumgglfbwft-neutral-background: var(--tumgglfbwft-color-primary-20);
+            --tumgglfbwft-neutral-background-hover: var(--tumgglfbwft-color-primary-30);
             --tumgglfbwft-neutral-text: var(--tumgglfbwft-color-primary-60);
 
-            --tumgglfbwft-last-background: hsl(45, 100%, 7%);
+            --tumgglfbwft-last-background: hsl(45, 100%, 11%);
             --tumgglfbwft-last-text: hsl(45, 100%, 66%);
         }
     }

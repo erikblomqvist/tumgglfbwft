@@ -61,6 +61,7 @@ const AddScoreEntry = ({ addingScoreEntry, setAddingScoreEntry }) => {
             <Actions>
                 <Button
                     type="button"
+                    className="plain"
                     onClick={() => setAddingScoreEntry(null)}
                     formNoValidate
                 >

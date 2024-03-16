@@ -41,6 +41,9 @@ export const Modal = styled.dialog`
     border-radius: 1rem;
     border: 0;
     width: clamp(400px, 50vw, 600px);
+    background-color: var(--tumgglfbwft-container-background);
+
+    color: var(--tumgglfbwft-container-text);
 
     h2 {
         margin-top: 0.5rem;
@@ -190,10 +193,24 @@ export const Button = styled.button`
         }
     }
 
-    &.constructive {
-        background-color: ${({ theme }) => theme.colors.neutral.background};
+    &.plain {
+        background-color: transparent;
 
-        color: ${({ theme }) => theme.colors.neutral.text};
+        color: var(--tumgglfbwft-button-text);
+
+        &:hover {
+            background-color: var(--tumgglfbwft-button-background);
+        }
+    }
+
+    &.constructive {
+        background-color: var(--tumgglfbwft-neutral-background);
+
+        color: var(--tumgglfbwft-button-text);
+
+        &:where(:not([disabled])):hover {
+            background-color: var(--tumgglfbwft-neutral-background-hover);
+        }
 
         &[disabled] {
             opacity: 0.8;

@@ -3,7 +3,8 @@ import { useScores } from '@/contexts/scores'
 import { useUsers } from '@/contexts/users'
 import {
     Header, User, Emoji, Name,
-    Button
+    Button,
+    CustomTooltipWrapper
 } from '@/styles/ViewPlayer'
 import { CloseButton, Actions } from '@/styles/Form'
 import { Stats, Stat, StatLabel, StatValue } from '@/styles/Stats'
@@ -44,12 +45,7 @@ const CustomTooltip = ({ active, payload }) => {
     })
 
     return (
-        <div
-            style={{
-                backgroundColor: light.colors.content.background,
-                padding: '0.5rem'
-            }}
-        >
+        <CustomTooltipWrapper>
             <p
                 style={{
                     margin: 0,
@@ -79,7 +75,7 @@ const CustomTooltip = ({ active, payload }) => {
             >
                 {dateFormat.format(payload[0].payload.timestamp)}
             </p>
-        </div>
+        </CustomTooltipWrapper>
     )
 }
 

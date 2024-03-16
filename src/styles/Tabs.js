@@ -21,18 +21,26 @@ export const Tab = styled.button`
     white-space: normal;
     overflow: hidden;
 
-    ${({ active, theme }) => {
+    color: var(--tumgglfbwft-content-text);
+
+    &:first-child {
+        border-top-left-radius: 0.5rem;
+        border-bottom-left-radius: 0.5rem;
+    }
+
+    &:last-child {
+        border-top-right-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
+    }
+
+    ${({ active }) => {
         if(active) {
             return css`
-                background-color: ${theme.colors.neutral.background};
-
-                color: ${theme.colors.neutral.text};
+                background-color: var(--tumgglfbwft-neutral-background);
             `
         } else {
             return css`
-                background-color: ${theme.colors.content.background};
-            
-                color: ${theme.colors.content.text};
+                background-color: var(--tumgglfbwft-content-background);
             `
         }
     }}

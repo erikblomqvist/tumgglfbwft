@@ -35,4 +35,9 @@ export const Score = styled.p`
     font-weight: 700;
 `
 
-export const Button = styled(ButtonBase)``
+export const Button = ButtonBase
+
+export const CustomTooltipWrapper = styled.div`
+    padding: 0.5rem;
+    background-color: var(--tumgglfbwft-content-background);
+`

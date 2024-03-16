@@ -218,6 +218,7 @@ const AddPlayer = ({
                 <Actions>
                     <Button
                         type="button"
+                        className="plain"
                         onClick={() => setAddingPlayer(false)}
                         formNoValidate
                     >
