@@ -13,17 +13,22 @@ import {
     BarChart, YAxis,
     Tooltip, Bar, Rectangle
 } from 'recharts'
-import { light } from '@/styles/Theme.styled'
 import { X } from 'styled-icons/feather'
 
-const CustomBar = props => {
-    let {
-        value,
-        fill
+const cssvar = name => getComputedStyle(document.documentElement).getPropertyValue(name)
+
+const CustomBar = ({ value, fill, ...props }) => {
+    const {
+        userScores,
+        index
     } = props
+
+    const prevValue = userScores[index - 1]?.value ?? 0
     
-    if(value < 0) {
-        fill = light.colors.error.text
+    if(value < prevValue) {
+        fill = cssvar('--tumgglfbwft-bar-negative')
+    } else {
+        fill = cssvar('--tumgglfbwft-bar-positive')
     }
 
     return (
@@ -200,8 +205,8 @@ const ViewPlayer = ({ viewingPlayer, setViewingPlayer }) => {
                         <Tooltip content={<CustomTooltip />} />
                         <Bar
                             dataKey="value"
-                            shape={<CustomBar />}
-                            fill={light.colors.success.text}
+                            shape={<CustomBar userScores={userScores} />}
+                            fill={cssvar('--tumgglfbwft-success-text')}
                         />
                     </BarChart>
                 </ResponsiveContainer>

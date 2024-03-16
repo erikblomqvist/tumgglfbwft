@@ -53,6 +53,7 @@ export const GlobalStyles = createGlobalStyle`
         --tumgglfbwft-color-tertiary-100: hsl(136, 97%, 98%);
 
         --tumgglfbwft-color-error-40: hsl(0, 80%, 66%);
+        --tumgglfbwft-color-error-50: hsl(0, 80%, 56%);
         --tumgglfbwft-color-error-90: hsl(14, 92%, 95%);
 
         --tumgglfbwft-shadow: hsla(0, 0%, 0%, 0.1);
@@ -81,6 +82,9 @@ export const GlobalStyles = createGlobalStyle`
         --tumgglfbwft-last-background: hsl(45, 100%, 66%);
         --tumgglfbwft-last-text: hsl(45, 100%, 7%);
 
+        --tumgglfbwft-bar-negative: var(--tumgglfbwft-color-error-40);
+        --tumgglfbwft-bar-positive: var(--tumgglfbwft-color-tertiary-40);
+
         @media (prefers-color-scheme: dark) {
             --tumgglfbwft-content-background: var(--tumgglfbwft-color-neutral-90);
             --tumgglfbwft-content-text: var(--tumgglfbwft-color-neutral-10);
@@ -103,6 +107,9 @@ export const GlobalStyles = createGlobalStyle`
 
             --tumgglfbwft-last-background: hsl(45, 100%, 11%);
             --tumgglfbwft-last-text: hsl(45, 100%, 66%);
+
+            --tumgglfbwft-bar-negative: var(--tumgglfbwft-color-error-40);
+            --tumgglfbwft-bar-positive: var(--tumgglfbwft-color-tertiary-40);
         }
     }
 

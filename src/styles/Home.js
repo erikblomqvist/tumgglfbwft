@@ -162,7 +162,7 @@ export const Placement = styled.span`
     font-size: 0.875rem;
 
     &::before {
-        content: "(";
+        content: "(#";
     }
 
     &::after {
