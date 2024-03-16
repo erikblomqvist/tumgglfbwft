@@ -3,7 +3,7 @@ import { Reorder } from 'framer-motion'
 
 export const Main = styled.main`
     min-height: 100vh;
-    background-color: ${({ theme }) => theme.colors.content.background};
+    background-color: var(--tumgglfbwft-content-background);
 `
 
 export const Header = styled.header`
@@ -17,8 +17,8 @@ export const Header = styled.header`
 
     margin-bottom: 1rem;
     padding: 1rem;
-    box-shadow: 0 0 0.5rem 0.5rem hsla(0, 0%, 0%, 0.1);
-    background-color: ${({ theme }) => theme.colors.container.background};
+    box-shadow: 0 0 0.5rem 0.5rem var(--tumgglfbwft-shadow);
+    background-color: var(--tumgglfbwft-container-background);
 
     button {
         flex-shrink: 0;
@@ -88,7 +88,7 @@ export const LastContainer = styled.div`
     border-radius: 1rem;
     width: 100%;
     padding: 2.5rem 1rem 0.5rem;
-    background-color: #ffd353;
+    background-color: var(--tumgglfbwft-last-background);
 `
 
 export const Card = styled(Reorder.Item)`
@@ -116,10 +116,10 @@ export const CardContent = styled.div`
 
     border-radius: 1rem;
     padding: 1rem;
-    background-color: ${({ theme }) => theme.colors.container.background};
+    background-color: var(--tumgglfbwft-container-background);
     box-shadow: 0px 4px 15px hsla(0, 0%, 0%, 0.04);
 
-    color: ${({ theme }) => theme.colors.container.text};
+    color: var(--tumgglfbwft-container-text);
 `
 
 export const Meta = styled.div`
@@ -226,17 +226,17 @@ export const Button = styled.button`
 
     &.plus {
         width: 56px;
-        background-color: ${({ theme }) => theme.colors.success.background};
+        background-color: var(--tumgglfbwft-success-background);
 
-        color: ${({ theme }) => theme.colors.success.text};
+        color: var(--tumgglfbwft-success-text);
     }
 
     &.minus {
         flex-grow: 1;
         
-        background-color: ${({ theme }) => theme.colors.error.background};
+        background-color: var(--tumgglfbwft-error-background);
 
-        color: ${({ theme }) => theme.colors.error.text};
+        color: var(--tumgglfbwft-error-text);
     }
 `
 
@@ -247,4 +247,5 @@ export const LastEmoji = styled.div`
 export const LastText = styled.div`
     font-size: 1rem;
     font-weight: 700;
+    color: var(--tumgglfbwft-last-text);
 `

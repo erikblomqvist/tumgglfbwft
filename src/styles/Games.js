@@ -11,8 +11,8 @@ export const Header = styled.header`
 
     margin-bottom: 1rem;
     padding: 1rem;
-    box-shadow: 0 0 0.5rem 0.5rem hsla(0, 0%, 0%, 0.1);
-    background-color: ${({ theme }) => theme.colors.container.background};
+    box-shadow: 0 0 0.5rem 0.5rem var(--tumgglfbwft-shadow);
+    background-color: var(--tumgglfbwft-container-background);
 
     button {
         flex-shrink: 0;

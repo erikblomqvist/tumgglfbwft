@@ -10,9 +10,9 @@ export const FABButton = styled.button`
     width: 56px;
     height: 56px;
     box-shadow: 0 0.125rem 0.125rem hsla(0, 0%, 0%, 0.1);
-    background-color: #333;
+    background-color: var(--tumgglfbwft-button-background);
 
-    color: #fff;
+    color: var(--tumgglfbwft-button-text);
 
     svg {
         stroke-width: 2;
