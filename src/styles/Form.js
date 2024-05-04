@@ -211,6 +211,8 @@ export const Input = styled.input`
     min-height: 40px;
     padding: 0 1rem;
     background-color: var(--tumgglfbwft-content-background);
+
+    color: inherit;
 `
 
 export const Select = styled.select`
